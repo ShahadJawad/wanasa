@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "356635018378",
+    "project_id": "wanasa-55c0f",
+    "storage_bucket": "wanasa-55c0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356635018378:android:4224864fb9b659e67d5973",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356635018378-ufivoeg3thsmem5893mmiqcrrsmbt4ao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN6Dzus_q64-FoBTXJhCb9kvlSP6hiPJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356635018378-ufivoeg3thsmem5893mmiqcrrsmbt4ao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
