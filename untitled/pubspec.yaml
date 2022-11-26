@@ -55,7 +55,8 @@ dev_dependencies:
   firebase_auth:
   google_sign_in:
   flutter_icons:
-
+  flutter_svg:
+  provider:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

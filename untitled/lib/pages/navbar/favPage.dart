@@ -1,8 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:flutter_tester/API/DataManager.dart';
 import 'package:untitled/constants.dart';
+import 'package:untitled/lists/list1.dart';
+
+import '../details/detailRecomPage.dart';
 
 class favPage extends StatefulWidget {
   @override
@@ -51,8 +54,10 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double _w = MediaQuery.of(context).size.width;
+
     Size size = MediaQuery.of(context).size;
-    return new Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: kPrimaryColor,
@@ -68,61 +73,106 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
             child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                color: kPrimaryColor,
+                color: Colors.grey[200],
                 child: Column(children: [
-                  Padding(
-                      padding: EdgeInsets.only(top: size.height * 0.02),
-                      child: Container(
-                        height: 50.0,
-                        width: MediaQuery.of(context).size.width - 30,
-                        decoration: BoxDecoration(
-                          color: Colors.white60,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 14.0),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Flexible(
-                              child: Theme(
-                                data: ThemeData(primaryColor: Colors.black),
-                                child: TextField(
-                                  cursorColor: Theme.of(context).accentColor,
-                                  decoration: InputDecoration.collapsed(
-                                    hintText: 'Search',
-                                    hintStyle: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
+
                   SizedBox(
                     height: 20,
                   ),
-                  Expanded(
-                      child: favoritePlaces.isEmpty
-                          ? Padding(
-                        padding:
-                        EdgeInsets.only(bottom: size.height * 0.3),
-                        child: Image.asset("images/assets/loading3.gif"),
-                      )
-                          : AnimatedList(
-                          key: _key,
-                          initialItemCount: favoritePlaces.length,
-                          itemBuilder: (context, index, animation) {
-                            return _buildItem(
-                                context, _animationController, index);
-                          })),
+           InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => detailsPage()));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: kPrimaryColor.withOpacity(.2),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  border: Border.all(
+                      color: Colors.white.withOpacity(.1), width: 1)),
+              child: Padding(
+                padding: EdgeInsets.all(_w / 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: _w / 3,
+                      width: _w / 3,
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(.2),
+                          borderRadius: BorderRadius.circular(20)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image(
+                          image: AssetImage(imagelist[1].myimage),
+                          fit: BoxFit.fill,
+
+                        ),
+                      ),
+                    ),
+
+
+                    SizedBox(
+                      width: _w / 2.05,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(' اسم المكان',
+                            maxLines: 2,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: _w / 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              wordSpacing: 1,
+                            ),
+                          ),
+                          Text(
+                            'المدينه',
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(1),
+                              fontSize: _w / 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                   onTap: () {},
+                        child:const Icon(Icons.favorite,color: Colors.red,size: 30,))
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+                  // Expanded(
+                  //     child: favoritePlaces.isEmpty
+                  //         ? Padding(
+                  //       padding:
+                  //       EdgeInsets.only(bottom: size.height * 0.3),
+                  //       child: Image.asset(imagelist[1].myimage),
+                  //     )
+                  //         : AnimatedList(
+                  //         key: _key,
+                  //         initialItemCount: favoritePlaces.length,
+                  //         itemBuilder: (context, index, animation) {
+                  //           return _buildItem(
+                  //               context, _animationController, index);
+                  //         })),
                 ]))));
   }
 
@@ -214,7 +264,7 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
                                                 child: Text(
                                                   favoritePlaces[index]
                                                   ["rating"],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontFamily: "Barlow",
                                                       fontSize: 14,
                                                       color: Colors.grey,
@@ -235,7 +285,7 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
                                   right: size.width * 0.0, bottom: 1),
                               child: Container(
                                 child: IconButton(
-                                  icon: new Icon(
+                                  icon:  Icon(
                                    Icons.favorite_outline_sharp,
                                     color: _colorHeart,
                                   ),

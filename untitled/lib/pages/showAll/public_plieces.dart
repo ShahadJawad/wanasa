@@ -3,9 +3,9 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:untitled/pages/details/detailsPage.dart';
 
 import '../../lists/list1.dart';
+import '../details/detailRecomPage.dart';
 
 class PublicPage extends StatefulWidget {
   @override
@@ -121,7 +121,7 @@ class _MyCustomUIState extends State<PublicPage> with TickerProviderStateMixin {
             onTap: () {
               HapticFeedback.lightImpact();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => detailsPublicPage()));
+                  context, MaterialPageRoute(builder: (context) => detailsPage()));
             },
             child: Container(
               decoration: BoxDecoration(

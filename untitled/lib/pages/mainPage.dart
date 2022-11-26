@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:untitled/constants.dart';
 import 'package:untitled/pages/navbar/Home_page.dart';
 import 'package:untitled/pages/navbar/favPage.dart';
-import 'package:untitled/pages/navbar/profilePage.dart';
 import 'package:untitled/pages/navbar/searchpage.dart';
+
+import 'navbar/profile/profile_screen.dart';
 
 class mainPage extends StatefulWidget {
   const mainPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _pagesState extends State<mainPage> {
     Home(),
     favPage(),
     searchPage(),
-    profilePage(),
+    ProfileScreen(),
   ];
 
 
@@ -35,11 +36,12 @@ class _pagesState extends State<mainPage> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: pages[_selectedIndex],
+        body:  pages[_selectedIndex],
+
 
         bottomNavigationBar: Container(
-        margin: EdgeInsets.all(8),
-    height: screenWidth * .155,
+        margin: EdgeInsets.only(left: 8,right: 8,bottom: 13),
+    height: screenWidth * .150,
     decoration: BoxDecoration(
     color: kPrimaryColor,
     boxShadow: [

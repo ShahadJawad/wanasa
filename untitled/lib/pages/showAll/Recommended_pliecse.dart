@@ -122,7 +122,7 @@ class _MyCustomUIState extends State<RecommendedPage> with TickerProviderStateMi
             onTap: () {
               HapticFeedback.lightImpact();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => detailsRecomPage()));
+                  context, MaterialPageRoute(builder: (context) => detailsPage()));
             },
             child: Container(
               decoration: BoxDecoration(
