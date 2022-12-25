@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 // import 'package:flutter_tester/API/DataManager.dart';
 import 'package:untitled/constants.dart';
 import 'package:untitled/lists/list1.dart';
+import 'package:untitled/widgets/favWidget.dart';
 
 import '../details/detailRecomPage.dart';
 
@@ -60,10 +61,11 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
     return  Scaffold(
         appBar: AppBar(
           elevation: 0.0,
+          automaticallyImplyLeading: false,
           backgroundColor: kPrimaryColor,
-          title: Text('Favorites',
+          title: Text('المفضلات',
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontFamily: "Assistant",
                 fontSize: 21,
                 fontWeight: FontWeight.bold,
@@ -118,41 +120,48 @@ class _FavoriteState extends State<favPage> with TickerProviderStateMixin {
 
                     SizedBox(
                       width: _w / 2.05,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(' اسم المكان',
-                            maxLines: 2,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: _w / 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                              wordSpacing: 1,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('اسم المكان',
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: _w / 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1,
+                                wordSpacing: 1,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'المدينه',
-                            maxLines: 1,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(1),
-                              fontSize: _w / 25,
-                              fontWeight: FontWeight.w600,
+                            Text(
+                              'المدينه',
+                              maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(1),
+                                fontSize: _w / 25,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    InkWell(
-                   onTap: () {},
-                        child:const Icon(Icons.favorite,color: Colors.red,size: 30,))
+
+                   //fav icon
+                   // MyFavWidget()
+                    SizedBox(
+                      height: 25,width: 25,
+                      child: LikeButton(),
+                    )
                   ],
                 ),
               ),

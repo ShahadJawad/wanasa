@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled/constants.dart';
+import 'package:untitled/constants.dart';
 import 'package:untitled/pages/navbar/Home_page.dart';
 import 'package:untitled/pages/navbar/favPage.dart';
 import 'package:untitled/pages/navbar/searchpage.dart';
 
+import '../constants.dart';
 import 'navbar/profile/profile_screen.dart';
 
 class mainPage extends StatefulWidget {
@@ -43,7 +45,7 @@ class _pagesState extends State<mainPage> {
         margin: EdgeInsets.only(left: 8,right: 8,bottom: 13),
     height: screenWidth * .150,
     decoration: BoxDecoration(
-    color: kPrimaryColor,
+    color: Colors.grey[200],
     boxShadow: [
     BoxShadow(
     color: Colors.black.withOpacity(.15),
@@ -51,7 +53,7 @@ class _pagesState extends State<mainPage> {
     offset: Offset(0, 10),
     ),
     ],
-    borderRadius: BorderRadius.circular(50),
+    borderRadius: BorderRadius.circular(25),
     ),
     child: ListView.builder(
     itemCount: 4,
@@ -92,8 +94,8 @@ class _pagesState extends State<mainPage> {
     listOfIcons[index],
     size: screenWidth * .076,
     color: index == _selectedIndex
-    ? Colors.white
-        : Colors.black26,
+    ? kPrimaryColor
+        :kPrimaryColor,
     ),
     ),
     ],

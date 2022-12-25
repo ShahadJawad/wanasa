@@ -57,6 +57,10 @@ dev_dependencies:
   flutter_icons:
   flutter_svg:
   provider:
+  sqflite: ^2.2.2
+  intro_slider: ^2.2.9
+  path_provider:
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:untitled/constants.dart';
 import 'package:untitled/lists/list1.dart';
+import 'package:untitled/widgets/favWidget.dart';
 
 class cardShowRec extends StatefulWidget {
   @override
@@ -46,14 +47,19 @@ class _cardShowRecState extends State<cardShowRec> {
               children: [
 
                 //heart icon
+
+                //LikeButton(),
+
                 Container(
                   margin: EdgeInsets.only(top: 5,right: 5),
-                  height: 30,width: 30,
+                   height: 30,width: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white24
-                  ),
-                  child:  Icon(Icons.favorite,color: Colors.white60,)),
+                    color: Colors.white38),
+
+                  child: LikeButton(),
+                 // Icon(Icons.favorite,color: Colors.white60,)
+                ),
 
                 // اسم المكان
                 Container(

@@ -52,15 +52,21 @@ class _HomeState extends State<Home> {
                 child:SizedBox(
                   height: 30,
                   child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: mycategorylist.length,
                      scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                       width: 80,
+                        margin: EdgeInsets.symmetric(horizontal: 5,),
+                        padding: EdgeInsets.symmetric(horizontal: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white
+                          ),
+                          child: Row(
+                            children: [
+                              mycategorylist[index].icon,
+                              Text(' ${mycategorylist[index].name}'),
+                            ],
                           ),
                         );
                       },

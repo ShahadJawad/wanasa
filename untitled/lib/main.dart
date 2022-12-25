@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled/pages/splash_screen.dart';
+import 'package:untitled/test.dart';
 import 'auth_server.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         Locale('ar', 'AE'), // English, no country code
       ],
       debugShowCheckedModeBanner: false,
-      home: SecondClass(),
+      home: test(),
     );
   }
 }

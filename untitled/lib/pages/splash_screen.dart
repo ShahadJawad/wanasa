@@ -7,6 +7,7 @@ import 'package:untitled/auth_server.dart';
 import 'package:untitled/constants.dart';
 import 'package:untitled/pages/navbar/Home_page.dart';
 import 'package:untitled/pages/login_page.dart';
+import 'introduction_screen.dart';
 
 
 class SecondClass extends StatefulWidget {
@@ -32,7 +33,8 @@ class _SecondClassState extends State<SecondClass>
           Navigator.of(context).pushReplacement(
             PageTransition(
               type: PageTransitionType.bottomToTop,
-             child: login(),
+             child: IntroScreen(),
+          //   login(),
             ),
           );
           Timer(
@@ -66,7 +68,7 @@ class _SecondClassState extends State<SecondClass>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
             image: DecorationImage(image: AssetImage('assest/images/backrounds.jpg'),
                 fit: BoxFit.fill)),
         child: Center(

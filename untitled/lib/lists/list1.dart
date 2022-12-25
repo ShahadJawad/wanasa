@@ -28,3 +28,26 @@ List<puplicplice> imagelist2 =[
 
 
 ];
+
+
+
+// تصنبفات
+
+class category {
+  String name ;
+  Icon icon;
+  category({
+    required this.name,
+    required this.icon
+
+  });
+}
+
+List<category> mycategorylist =[
+  category(name: 'انشطه في الهواء ',icon: Icon(Icons.sunny)),
+  category(name: 'فن وثقافه',icon:  Icon(Icons.color_lens_outlined)),
+  category(name: 'متاحف',icon: Icon(Icons.museum_outlined) ),
+  category(name: 'مناسب للاطفال',icon: Icon(Icons.face) ),
+
+
+];
