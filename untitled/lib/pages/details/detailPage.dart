@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:untitled/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/favWidget.dart';
 import '../../widgets/stars.dart';
@@ -10,6 +11,10 @@ import '../../widgets/stars.dart';
 class detailsPage extends StatelessWidget {
   final data;
   detailsPage({Key? key, this.data}) : super(key: key);
+
+  void _launchURL(url) async {
+    if (!await launch(url)) throw 'Could not launch $url';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +56,23 @@ class detailsPage extends StatelessWidget {
               decoration: BoxDecoration(
                   color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(15)),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text(' أذهب للمكان',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold)),
-                    Icon(
-                      Icons.place,
-                      color: Colors.white,
-                      size: 23,
-                    )
-                  ]),
+              child: InkWell(
+                onTap: () => _launchURL(data['location']),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Text(' أذهب للمكان',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                      Icon(
+                        Icons.place,
+                        color: Colors.white,
+                        size: 23,
+                      )
+                    ]),
+              ),
             ),
 
             // fav and share

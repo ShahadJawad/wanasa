@@ -7,6 +7,7 @@ import 'package:untitled/pages/details/detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'favWidget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class cardShow extends StatefulWidget {
   const cardShow({super.key});
@@ -16,6 +17,7 @@ class cardShow extends StatefulWidget {
 
 class _cardShowState extends State<cardShow> {
   //logic//
+
   var data;
   getData() async {
     FirebaseFirestore.instance.collection('places').get().then((value) {

@@ -61,6 +61,7 @@ dev_dependencies:
   intro_slider: ^2.2.9
   path_provider:
   flutter_staggered_animations:
+  url_launcher:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
