@@ -20,7 +20,7 @@
       String databasepath = await getDatabasesPath();
       String path = join(databasepath, 'shahad.db');
       Database mydb = await openDatabase(
-          path, onCreate: _onCreate, version: 5, onUpgrade: _onUpgrade);
+          path, onCreate: _onCreate, version: 6, onUpgrade: _onUpgrade);
       return mydb;
     }
 
@@ -34,17 +34,46 @@
   CREATE TABLE $table1 (
     "id" INTEGER  NOT NULL PRIMARY KEY  AUTOINCREMENT, 
     "placeName" TEXT NOT NULL,
-    "placeType" TEXT 
+    "placeDescription" TEXT NOT NULL,
+    "PlaceImg" TEXT NOT NULL,
+    "CityName" TEXT NOT NULL,
   )
   ''');
 
 
 
     // prepopulate a few rows (consider using a transaction)
-    await db.rawInsert('INSERT INTO $table1  ("placeName" , "placeType" ) VALUES("شط العرب", "صيفي")');
-    await db.rawInsert('INSERT INTO $table1  ("placeName","placeType") VALUES("التنومه", "شتائي")');
-    await db.rawInsert('INSERT INTO $table1  ("placeName", "placeType") VALUES("الكوىنيش", "شتائي")');
+    await db.rawInsert('''
+    
+    INSERT INTO $table1  ("placeName"  , "placeDescription" ,"PlaceImg", "CityName" ) 
+                     VALUES(
+                     "كورنيش شط العرب"
+                       , "ويشار الى ان كورنيش شط العرب يمتد على مسافة 3 كم على ضفاف الشط المواجه لمركز مدينة البصرة، اذ يبدأ من جزيرة الداكير، وحتى مجمع القصور الرئاسية",
+                     "assest/images/kornesh.png" ,
+                     "البصره" 
+                      )
+    
+    ''');
 
+      await db.rawInsert('''
+    INSERT INTO $table1  ("placeName"  , "placeDescription" ,"PlaceImg", "CityName" ) 
+                     VALUES(
+                    ," جزيرة السندباد"
+                     "جزيرة السندباد تقع في وسط شط العرب، قرب ملتقى نهر كرمة علي، بالقرب من مطار البصرة القديم، وفندق شط العرب العريق في بنائه. المسافة بين مركز مدينة البصرة وجزيرة السندباد تتطلب لقطعها نصف ساعة بالسيارة ويفصلها عن المدينة جسر عملاق هو جسر خالد الذي دمر في حرب الخليج الثانية. "
+                     "assest/images/kornesh.png" ,
+                     "البصره" 
+                      )
+       ''');
+
+      await db.rawInsert('''
+    INSERT INTO $table1  ("placeName"  , "placeDescription" ,"PlaceImg", "CityName" ) 
+                     VALUES(
+                    ,"متحف البصرة الحضاري"
+                     ,                     "تحف البصرة الحضاري، هو متحف للآثار يقع في مدينة البصرة جنوب العراق حيث تم إنشاءه في بناية أحد القصور الرئاسية التي تعود إلى النظام السابق على شط العرب "
+                     "assest/images/kornesh.png" ,
+                     "البصره" 
+                      )
+       ''');
       print(" onCreate =====================================");
     }
 

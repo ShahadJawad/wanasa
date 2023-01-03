@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'db/mydb.dart';
+import '../db/mydb.dart';
 
 class test extends StatelessWidget {
 
@@ -26,7 +26,15 @@ class test extends StatelessWidget {
                    physics: NeverScrollableScrollPhysics(),
                    shrinkWrap: true,
                    itemBuilder: (context, i) {
-                            return Text("${snapshot.data![i]['placeName']}");
+                            return Column(
+                              children: [
+                                Text("${snapshot.data![i]['placeName']}"),
+                                Text("${snapshot.data![i]['placeType']}"),
+                                Text("${snapshot.data![i]['placeDescription']}"),
+                              ],
+                            );
+
+
                  },);
                  }
                return Center(child: CircularProgressIndicator());

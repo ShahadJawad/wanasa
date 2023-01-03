@@ -41,7 +41,9 @@ class _pagesState extends State<mainPage> {
         body:  pages[_selectedIndex],
 
 
-        bottomNavigationBar: Container(
+        bottomNavigationBar:
+
+        Container(
         margin: EdgeInsets.only(left: 8,right: 8,bottom: 13),
     height: screenWidth * .150,
     decoration: BoxDecoration(
@@ -102,6 +104,7 @@ class _pagesState extends State<mainPage> {
     ),
     ),
     ),)
+
     );
   }
 

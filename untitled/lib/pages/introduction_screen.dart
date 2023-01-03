@@ -39,6 +39,7 @@ class _IntroScreenState extends State<IntroScreen> {
         color: Colors.black,
         fontSize: 20.0,
       ),
+      centerWidget: Image(image: AssetImage('assest/images/intro1.png')),
       marginDescription:
       EdgeInsets.only(left: 20.0,
           right: 20.0,
@@ -60,7 +61,9 @@ class _IntroScreenState extends State<IntroScreen> {
     fontWeight: FontWeight.bold,
     ),
     description: "Do video call anywhere anytime with this app.",
-    styleDescription: TextStyle(
+       centerWidget: Image(image: AssetImage('assest/images/intro2.png')),
+
+       styleDescription: TextStyle(
     color: Colors.black,
     fontSize: 20.0,
     ),
@@ -78,7 +81,8 @@ class _IntroScreenState extends State<IntroScreen> {
      fontWeight: FontWeight.bold,
     ),
     description: "Now track the location with this app easily.",
-    styleDescription:const TextStyle(
+       centerWidget: Image(image: AssetImage('assest/images/intro3.png')),
+       styleDescription:const TextStyle(
     color: Colors.white,
     fontSize: 20.0,
     ),

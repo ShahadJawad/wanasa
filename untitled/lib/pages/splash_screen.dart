@@ -10,12 +10,12 @@ import 'package:untitled/pages/login_page.dart';
 import 'introduction_screen.dart';
 
 
-class SecondClass extends StatefulWidget {
+class splash_page extends StatefulWidget {
   @override
   _SecondClassState createState() => _SecondClassState();
 }
 
-class _SecondClassState extends State<SecondClass>
+class _SecondClassState extends State<splash_page>
     with TickerProviderStateMixin {
   late AnimationController scaleController;
   late Animation<double> scaleAnimation;

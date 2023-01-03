@@ -6,7 +6,7 @@ import 'package:untitled/constants.dart';
 import 'package:untitled/lists/list1.dart';
 import 'package:untitled/widgets/favWidget.dart';
 
-import '../details/detailRecomPage.dart';
+import '../details/detailPage.dart';
 
 class favPage extends StatefulWidget {
   @override
