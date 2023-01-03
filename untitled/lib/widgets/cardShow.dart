@@ -4,102 +4,125 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:untitled/lists/list1.dart';
 import 'package:untitled/pages/details/detailPage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'favWidget.dart';
 
+class cardShow extends StatefulWidget {
+  const cardShow({super.key});
+  @override
+  State<cardShow> createState() => _cardShowState();
+}
 
-class cardShow extends StatelessWidget {
+class _cardShowState extends State<cardShow> {
+  //logic//
+  var data;
+  getData() async {
+    FirebaseFirestore.instance.collection('places').get().then((value) {
+      setState(() {
+        data = value.docs;
+      });
+
+      print(data.length);
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  //logic//
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     int columnCount = 2;
 
-    return  AnimationLimiter(
-        child: GridView.count(
-          physics:
-          BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          padding: EdgeInsets.all(_w / 70),
-          crossAxisCount: columnCount,
+    return AnimationLimiter(
+      child: GridView.count(
+        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        padding: EdgeInsets.all(_w / 70),
+        crossAxisCount: columnCount,
+        children: List.generate(
+          //عدد الكارت
+          data.length,
+          (int index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: Duration(milliseconds: 500),
+              columnCount: columnCount,
+              child: ScaleAnimation(
+                duration: Duration(milliseconds: 900),
+                curve: Curves.fastLinearToSlowEaseIn,
+                child: FadeInAnimation(
+                  //card
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => detailsPage(),
+                      ));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 8, right: 5, left: 5),
+                      height: 90, width: 120,
+                      //color: kPrimaryColor,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            image: NetworkImage(data[index].data()['img_path']),
+                            fit: BoxFit.fill),
+                      ),
 
-          children: List.generate(
-            //عدد الكارت
-            nameplacesitems.length,
-                (int index) {
-              return AnimationConfiguration.staggeredGrid(
-                position: index,
-                duration: Duration(milliseconds: 500),
-                columnCount: columnCount,
-                child: ScaleAnimation(
-                  duration: Duration(milliseconds: 900),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  child: FadeInAnimation(
-
-                    //card
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(
-                       builder: (context) => detailsPage(),));
-                        },
+                      //shado
                       child: Container(
-                        margin: const EdgeInsets.only(top: 8,right: 5,left: 5),
-                        height: 90,width:120,
-                        //color: kPrimaryColor,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image:const DecorationImage(
-                              image:AssetImage('assest/images/img2.jpg'),
-                              fit: BoxFit.fill),
+                        padding: EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
+                          color: Colors.black26,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //fav button
+                            Container(
+                              margin: EdgeInsets.only(top: 5, right: 5),
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white60),
+                              child: LikeButton(),
+                            ),
 
-                        //shado
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration:const BoxDecoration(
-                            color:  Colors.black26,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child:Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              //fav button
-                              Container(
-                                margin: EdgeInsets.only(top: 5,right: 5),
-                                height: 30,width: 30,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white60),
-                                child: LikeButton(),
+                            // اسم المكان
+                            Container(
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                data[index].data()['name'],
+                                textAlign: TextAlign.end,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
                               ),
-
-                              // اسم المكان
-                              Container(
-                                alignment: Alignment.bottomRight,
-                                child:  Text(
-                                  nameplacesitems[index].name ,
-                                  textAlign: TextAlign.end,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20
-                                  ),),
-                              ),
-
-                            ],
-                          ) ,
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
+      ),
     );
   }
 }
+
 
 
 
