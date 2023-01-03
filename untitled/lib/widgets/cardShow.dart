@@ -37,7 +37,7 @@ class _cardShowState extends State<cardShow> {
     double _w = MediaQuery.of(context).size.width;
     int columnCount = 2;
 
-    return data.isEmpty
+    return data == null
         ? Center(
             child: CircularProgressIndicator(),
           )
