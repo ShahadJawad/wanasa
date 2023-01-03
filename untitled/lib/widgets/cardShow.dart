@@ -22,8 +22,6 @@ class _cardShowState extends State<cardShow> {
       setState(() {
         data = value.docs;
       });
-
-      print(data.length);
     });
   }
 
@@ -39,87 +37,98 @@ class _cardShowState extends State<cardShow> {
     double _w = MediaQuery.of(context).size.width;
     int columnCount = 2;
 
-    return AnimationLimiter(
-      child: GridView.count(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        padding: EdgeInsets.all(_w / 70),
-        crossAxisCount: columnCount,
-        children: List.generate(
-          //عدد الكارت
-          data.length,
-          (int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: Duration(milliseconds: 500),
-              columnCount: columnCount,
-              child: ScaleAnimation(
-                duration: Duration(milliseconds: 900),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: FadeInAnimation(
-                  //card
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => detailsPage(),
-                      ));
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 8, right: 5, left: 5),
-                      height: 90, width: 120,
-                      //color: kPrimaryColor,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: NetworkImage(data[index].data()['img_path']),
-                            fit: BoxFit.fill),
-                      ),
-
-                      //shado
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: const BoxDecoration(
-                          color: Colors.black26,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //fav button
-                            Container(
-                              margin: EdgeInsets.only(top: 5, right: 5),
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white60),
-                              child: LikeButton(),
+    return data.isEmpty
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : AnimationLimiter(
+            child: GridView.count(
+              physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              padding: EdgeInsets.all(_w / 70),
+              crossAxisCount: columnCount,
+              children: List.generate(
+                //عدد الكارت
+                data.length,
+                (int index) {
+                  return AnimationConfiguration.staggeredGrid(
+                    position: index,
+                    duration: Duration(milliseconds: 500),
+                    columnCount: columnCount,
+                    child: ScaleAnimation(
+                      duration: Duration(milliseconds: 900),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      child: FadeInAnimation(
+                        //card
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => detailsPage(
+                                data: data[index].data(),
+                              ),
+                            ));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                top: 8, right: 5, left: 5),
+                            height: 90, width: 120,
+                            //color: kPrimaryColor,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      data[index].data()['img_path']),
+                                  fit: BoxFit.fill),
                             ),
 
-                            // اسم المكان
-                            Container(
-                              alignment: Alignment.bottomRight,
-                              child: Text(
-                                data[index].data()['name'],
-                                textAlign: TextAlign.end,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+                            //shado
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: const BoxDecoration(
+                                color: Colors.black26,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //fav button
+                                  Container(
+                                    margin: EdgeInsets.only(top: 5, right: 5),
+                                    height: 30,
+                                    width: 30,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white60),
+                                    child: LikeButton(),
+                                  ),
+
+                                  // اسم المكان
+                                  Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text(
+                                      data[index].data()['name'],
+                                      textAlign: TextAlign.end,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
 
