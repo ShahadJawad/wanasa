@@ -9,10 +9,23 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,
-        title: Text("الملف الشخصي"),
+        title: const Text('الملف الشخصي',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Assistant",
+              fontSize: 21,
+              fontWeight: FontWeight.bold,
+            )),
       ),
       body: Body(),
     );
   }
 }
+// AppBar(
+// backwardsCompatibility: false,
+// backgroundColor: kPrimaryColor,
+// title: Text("الملف الشخصي"),
+// ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../db/mydb.dart';
+import 'db/mydb.dart';
 
 class test extends StatelessWidget {
 

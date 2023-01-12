@@ -15,18 +15,6 @@ class nameplaces {
      required this.name
 });
 }
-List<nameplaces> nameplacesitems =[
-  nameplaces(name: 'اسم المكان1'),
-  nameplaces(name: 'اسم المكان2'),
-  nameplaces(name: 'اسم المكان3'),
-  nameplaces(name: 'اسم المكان4'),
-  nameplaces(name: 'اسم المكان5'),
-  nameplaces(name: 'اسم المكان6'),
-  nameplaces(name: 'اسم المكان7'),
-  nameplaces(name: 'اسم المكان8'),
-
-
-];
 
 List<puplicplice> imagelist =[
   puplicplice(myimage:'assest/images/img1.jpg'),
@@ -65,7 +53,7 @@ class category {
 }
 
 List<category> mycategorylist =[
-  category(name: 'انشطه في الهواء ',
+  category(name: 'ترفيهيه ',
       icon:const Icon(Icons.sunny,
         color: kPrimaryColor,
         size: 20,
@@ -81,6 +69,12 @@ List<category> mycategorylist =[
       icon:const Icon(Icons.museum_outlined,
           color: kPrimaryColor,
           size: 20,
+      )),
+
+  category(name: 'دينيه',
+      icon:const Icon(Icons.museum_outlined,
+        color: kPrimaryColor,
+        size: 20,
       )),
 
   category(name: 'مناسب للاطفال',

@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
     return  Scaffold(
       backgroundColor: Colors.grey[200],
           body :  Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 0),
             child: Column(
                 children:[
 
@@ -30,7 +30,10 @@ class _HomeState extends State<Home> {
                 leading:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const[
-                    Text('وقت الوناسه',style: TextStyle(fontSize: 20,color: kPrimaryColor,fontWeight: FontWeight.bold)),
+                    Text('وقت الوناسة',style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold)),
                     Text('أكتشف البصره',style: TextStyle(fontSize: 13)),
                   ],
                 ),
@@ -74,7 +77,7 @@ class _HomeState extends State<Home> {
              Container(
                color: Colors.grey[200],
                margin: EdgeInsets.only(top: 12),
-               height: h/1.39,
+               height: h/1.40,
                  child:  cardShow()),
 
             ]

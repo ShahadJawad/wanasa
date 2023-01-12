@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled/constants.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
@@ -19,22 +20,22 @@ class ProfilePic extends StatelessWidget {
             backgroundImage: AssetImage("assest/images/person.jpg"),
           ),
           Positioned(
-            right: -16,
-            bottom: 0,
+            right: -5,
+            bottom: 3,
             child: SizedBox(
-              height: 46,
-              width: 46,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
+              height: 40,
+              width: 40,
+              child: InkWell(
+                onTap: () {},
+
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.camera,
+                  color: kPrimaryColor,
+                    size: 30,
                   ),
-                  primary: Colors.white,
-                  backgroundColor: Color(0xFFF5F6F9),
                 ),
-                onPressed: () {},
-                child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
               ),
             ),
           )

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:untitled/pages/login_page.dart';
+import 'package:untitled/pages/navbar/Home_page.dart';
 import 'package:untitled/pages/splash_screen.dart';
 import 'package:untitled/test/test.dart';
 import 'auth_server.dart';
+import 'pages/mainPage.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,7 +26,8 @@ class MyApp extends StatelessWidget {
         Locale('ar', 'AE'), // English, no country code
       ],
       debugShowCheckedModeBanner: false,
-      home: splash_page(),
+      home: mainPage(),
     );
   }
 }
+

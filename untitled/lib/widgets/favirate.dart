@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../constants.dart';
+import '../pages/navbar/fav/favPage.dart';
 
 class LikeButton extends StatefulWidget {
   const LikeButton({Key? key ,@required this.idd , @required this.dataa}) : super(key: key);
@@ -19,9 +20,7 @@ class _LikeButtonState extends State<LikeButton>
   late final AnimationController _controller = AnimationController(
       duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
 
-  bool _isFavorite = false;
-
-
+  bool _isFavorite = true;
 
 
   @override
@@ -53,7 +52,7 @@ class _LikeButtonState extends State<LikeButton>
                 .catchError((error) => print('Update failed: $error'));
           }
           _isFavorite = !_isFavorite;
-        //هااا وينج
+
         });
         _controller
             .reverse()
@@ -62,7 +61,7 @@ class _LikeButtonState extends State<LikeButton>
       child: ScaleTransition(
         scale: Tween(begin: 0.7, end: 1.0).animate(
             CurvedAnimation(parent: _controller, curve: Curves.easeOut)),
-        child: (widget.dataa['fav']==true || _isFavorite==true)
+        child: _isFavorite
             ?  const Icon(
           Icons.favorite,
           size: 25,

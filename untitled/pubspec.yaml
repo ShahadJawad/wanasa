@@ -62,6 +62,8 @@ dev_dependencies:
   path_provider:
   flutter_staggered_animations:
   url_launcher:
+  get: 
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

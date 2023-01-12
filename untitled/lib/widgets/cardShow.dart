@@ -6,6 +6,7 @@ import 'package:untitled/lists/list1.dart';
 import 'package:untitled/pages/details/detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../constants.dart';
 import 'favWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,10 +16,20 @@ class cardShow extends StatefulWidget {
   State<cardShow> createState() => _cardShowState();
 }
 
-class _cardShowState extends State<cardShow> {
+class _cardShowState extends State<cardShow> with SingleTickerProviderStateMixin {
   //logic//
+  late final AnimationController _controller = AnimationController(
+      duration: const Duration(milliseconds: 200), vsync: this, value: 1.0);
 
+  bool _isFavorite = false;
   var data;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   getData() async {
     FirebaseFirestore.instance.collection('places').get().then((value) {
       setState(() {
@@ -40,9 +51,11 @@ class _cardShowState extends State<cardShow> {
     int columnCount = 2;
 
     return data == null
+
         ? Center(
             child: CircularProgressIndicator(),
           )
+
         : AnimationLimiter(
             child: GridView.count(
               physics: BouncingScrollPhysics(
@@ -79,7 +92,7 @@ class _cardShowState extends State<cardShow> {
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      data[index].data()['img_path']),
+                                      data[index].data()['img_path']?? " "),
                                   fit: BoxFit.fill),
                             ),
 
@@ -104,14 +117,16 @@ class _cardShowState extends State<cardShow> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.white60),
-                                    child: LikeButton(),
+                                    child: LikeButton(
+                                        idd: data[index].reference.id,
+                                        dataa:  data[index].data()),
                                   ),
 
                                   // اسم المكان
                                   Container(
                                     alignment: Alignment.bottomRight,
                                     child: Text(
-                                      data[index].data()['name'],
+                                      data[index].data()['name']?? " ",
                                       textAlign: TextAlign.end,
                                       style: const TextStyle(
                                           color: Colors.white,
@@ -132,6 +147,8 @@ class _cardShowState extends State<cardShow> {
             ),
           );
   }
+
+
 }
 
 

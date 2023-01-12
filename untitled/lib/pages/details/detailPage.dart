@@ -27,7 +27,7 @@ class detailsPage extends StatelessWidget {
             height: h / 2,
             width: double.infinity,
             child: Image(
-              image: NetworkImage(data['img_path']),
+              image: NetworkImage(data['img_path']?? " "),
               fit: BoxFit.cover,
             ),
           ),
@@ -57,7 +57,7 @@ class detailsPage extends StatelessWidget {
                   color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(15)),
               child: InkWell(
-                onTap: () => _launchURL(data['location']),
+                onTap: () => _launchURL(data['location']?? " "),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
@@ -187,7 +187,7 @@ class detailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'اسم المكان \n ,${data['name']}',
+                          '${data['city']?? " "} \n ,${data['name']??" "}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                         ),
@@ -202,19 +202,19 @@ class detailsPage extends StatelessWidget {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Container(
+                        //   padding: const EdgeInsets.only(top: 15),
+                        //   child:const Text(
+                        //     " الوصف",
+                        //     style: TextStyle(
+                        //         fontWeight: FontWeight.w500, fontSize: 20),
+                        //   ),
+                        // ),
                         Container(
-                          padding: const EdgeInsets.only(right: 8, top: 8),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Text(
-                            data['category'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 24),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(
-                            data['description'],
-                            style: TextStyle(fontSize: 16),
+                            data['description']?? " ",
+                            style:const TextStyle(fontSize: 16),
                           ),
                         ),
                       ])
@@ -225,10 +225,6 @@ class detailsPage extends StatelessWidget {
         });
   }
 }
-
-
-
-
 
 
 
