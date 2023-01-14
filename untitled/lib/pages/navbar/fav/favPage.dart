@@ -1,17 +1,10 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:untitled/constants.dart';
-import 'package:get/get.dart';
-// import '../../../widgets/favirate.dart.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../widgets/favirate.dart';
-import '../../details/detailPage.dart';
-import 'controller.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class favPage extends StatefulWidget {
   @override
@@ -24,7 +17,7 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
   late AnimationController _animationController;
 
   List favoritePlaces = [];
-
+  bool isExpanded = true;
   Color _colorHeart = Colors.red;
 
   // @override
@@ -39,6 +32,10 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
   //   // });
   //   super.initState();
   // }
+
+  void _launchURL(url) async {
+    if (!await launch(url)) throw 'Could not launch $url';
+  }
 
   @override
   void dispose() {
@@ -76,11 +73,12 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
     super.initState();
   }
 
+
   //logic//
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
-    int columnCount = 1;
+
 
     return data == null
 
@@ -88,213 +86,330 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
       child: CircularProgressIndicator(),
     )
 
-        : AnimationLimiter(
-      child: GridView.count(
-        physics: BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
+        : Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        automaticallyImplyLeading: false,
+        backgroundColor: kPrimaryColor,
+        title: const Text('المفضلات ',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Assistant",
+              fontSize: 21,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
+          body: StreamBuilder (
 
-        padding: EdgeInsets.all(20),
-        childAspectRatio: 2,
+            builder: (context, snapshot) {
 
-        crossAxisCount: columnCount,
-        children: List.generate(
-          //عدد الكارت
-          data.length,
-              (int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: Duration(milliseconds: 500),
-              columnCount: columnCount,
-              child: ScaleAnimation(
-                duration: Duration(milliseconds: 900),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: FadeInAnimation(
-                  //card
-                  child: InkWell(
+              return ListView.builder(
+
+                itemCount: data.length,
+                physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                itemBuilder: (BuildContext context, int index) {
+                  return  InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => detailsPage(
-                          data: data[index].data(),
-                        ),
-                      ));
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
                     },
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          top: 8, right: 5, left: 5),
-                      height: 90, width: 120,
-                      //color: kPrimaryColor,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                data[index].data()['img_path']?? " "),
-                            fit: BoxFit.fill),
+                    child:  AnimatedContainer(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: isExpanded ? 20 : 10,
+                        vertical: 20,
                       ),
-
-                      //shado
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: const BoxDecoration(
-                          color: Colors.black26,
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(20)),
+                      padding: EdgeInsets.all(8),
+                      height: isExpanded ? 100 : 180,
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: Duration(milliseconds: 1200),
+                      decoration: BoxDecoration(
+                        color:kPrimaryColor,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(isExpanded ? 20 : 20),
                         ),
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //fav button
-                            Container(
-                              margin: EdgeInsets.only(top: 5, right: 5),
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white60),
-                              child: LikeButton(
-                                  idd: data[index].reference.id,
-                                  dataa:  data[index].data()),
-                            ),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
 
-                            // اسم المكان
-                            Container(
-                              alignment: Alignment.bottomRight,
-                              child: Text(
-                                data[index].data()['name']?? " ",
-                                textAlign: TextAlign.end,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    height: 80,width: 80,
+                                    decoration: BoxDecoration(
+                                        image:  DecorationImage(
+                                            image:NetworkImage(
+                                                data[index].data()['img_path']?? " "
+                                            ),
+                                            fit: BoxFit.fill
+                                        ),
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                  ),
+
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data[index].data()['name'],
+                                        style:const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white,
+
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+
+                                      Text(
+                                        data[index].data()['city'],
+                                        style:const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          // fontWeight: FontWeight.w800
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+
+
+                              Icon(
+                                isExpanded
+                                    ? Icons.keyboard_arrow_down
+                                    : Icons.keyboard_arrow_up,
+                                color: Colors.white,
+                                size: 27,
+                              ),
+                            ],
+                          ),
+                          isExpanded ? SizedBox() : SizedBox(height: 20),
+                          AnimatedCrossFade(
+                            firstChild: const Text(
+                              '',
+                              style: TextStyle(
+                                fontSize: 0,
                               ),
                             ),
-                          ],
-                        ),
+                            secondChild:Column(
+                              children: [
+                                const  Divider(height: 14,),
+
+                                Container(
+                                  margin:const EdgeInsets.only(top: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      LikeButton(
+                                        idd:  data[index].reference.id,
+                                        dataa:  data[index].data(),
+                                      ),
+
+                                      InkWell(
+                                        onTap: () => _launchURL(data['location']?? " "),
+                                        child: const Icon(
+                                          Icons.location_on_sharp,
+                                          color: Colors.white,
+
+                                        ),
+                                      ),
+
+                                      InkWell(
+                                        onTap: (){},
+                                        child: const Icon(
+                                          Icons.share,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+
+
+                                    ],),
+                                )
+                              ],
+                            ),
+                            crossFadeState: isExpanded
+                                ? CrossFadeState.showFirst
+                                : CrossFadeState.showSecond,
+                            duration: Duration(milliseconds: 1200),
+                            reverseDuration: Duration.zero,
+                            sizeCurve: Curves.fastLinearToSlowEaseIn,
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
+                  );
+                },
 
 
-}
 
 
-class favcard extends StatefulWidget {
-  const favcard({Key? key}) : super(key: key);
+              );
+            },
 
-  @override
-  State<favcard> createState() => _MyCustomWidgetState();
-}
-
-
-class _MyCustomWidgetState extends State<favcard> {
-  String TapToExpandIt = 'Tap to Expand it';
-  String Sentence = 'Widgets that have global keys reparent their subtrees when'
-      ' they are moved from one location in the tree to another location in the'
-      ' tree. In order to reparent its subtree, a widget must arrive at its new'
-      ' location in the tree in the same animation frame in which it was removed'
-      ' from its old location the tree.'
-      ' Widgets that have global keys reparent their subtrees when they are moved'
-      ' from one location in the tree to another location in the tree. In order'
-      ' to reparent its subtree, a widget must arrive at its new location in the'
-      ' tree in the same animation frame in which it was removed from its old'
-      ' location the tree.';
-  bool isExpanded = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(
-        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-    children: [
-      InkWell(
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        onTap: () {
-          setState(() {
-            isExpanded = !isExpanded;
-          });
-          },
-          child:  AnimatedContainer(
-            margin: EdgeInsets.symmetric(
-              horizontal: isExpanded ? 20 : 10,
-              vertical: 20,
-            ),
-            padding: EdgeInsets.all(8),
-            height: isExpanded ? 100 : 330,
-            curve: Curves.fastLinearToSlowEaseIn,
-            duration: Duration(milliseconds: 1200),
-            decoration: BoxDecoration(
-              color:kPrimaryColor,
-              borderRadius: BorderRadius.all(
-                Radius.circular(isExpanded ? 20 : 20),
-              ),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                   Container(
-                     height: 80,width: 80,
-                     decoration: BoxDecoration(
-                       image: const DecorationImage(
-                           image: AssetImage('assest/images/img4.jpg'),
-                           fit: BoxFit.fill),
-                       borderRadius: BorderRadius.circular(10)
-
-                     ),
-                      ),
-                    Icon(
-                      isExpanded
-                          ? Icons.keyboard_arrow_down
-                          : Icons.keyboard_arrow_up,
-                      color: Colors.white,
-                      size: 27,
-                    ),
-                  ],
-                ),
-                isExpanded ? SizedBox() : SizedBox(height: 20),
-                AnimatedCrossFade(
-                  firstChild: const Text(
-                    '',
-                    style: TextStyle(
-                      fontSize: 0,
-                    ),
-                  ),
-                  secondChild:const  Text(
-                    'shahad',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.7,
-                    ),
-                  ),
-                  crossFadeState: isExpanded
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: Duration(milliseconds: 1200),
-                  reverseDuration: Duration.zero,
-                  sizeCurve: Curves.fastLinearToSlowEaseIn,
-                ),
-              ],
-            ),
           ),
-    ),
-
-    ],
-        ),
-    );
+        );
   }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// class favcard extends StatefulWidget {
+//   const favcard({Key? key}) : super(key: key);
+//
+//   @override
+//   State<favcard> createState() => _MyCustomWidgetState();
+// }
+//
+//
+//
+//
+// class _MyCustomWidgetState extends State<favcard> {
+//   String TapToExpandIt = 'Tap to Expand it';
+//   String Sentence = 'Widgets that have global keys reparent their subtrees when'
+//       ' they are moved from one location in the tree to another location in the'
+//       ' tree. In order to reparent its subtree, a widget must arrive at its new'
+//       ' location in the tree in the same animation frame in which it was removed'
+//       ' from its old location the tree.'
+//       ' Widgets that have global keys reparent their subtrees when they are moved'
+//       ' from one location in the tree to another location in the tree. In order'
+//       ' to reparent its subtree, a widget must arrive at its new location in the'
+//       ' tree in the same animation frame in which it was removed from its old'
+//       ' location the tree.';
+//   bool isExpanded = true;
+//
+//   var data;
+//
+//   getData() async {
+//     FirebaseFirestore.instance.collection('places').where('fav', isEqualTo: true).get().then((value) {
+//       setState(() {
+//         data = value.docs;
+//       });
+//     });
+//   }
+//
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: ListView.builder(
+//
+//         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+//     itemBuilder: (BuildContext context, int index) {
+//           return  InkWell(
+//             highlightColor: Colors.transparent,
+//             splashColor: Colors.transparent,
+//             onTap: () {
+//               setState(() {
+//                 isExpanded = !isExpanded;
+//               });
+//             },
+//             child:  AnimatedContainer(
+//               margin: EdgeInsets.symmetric(
+//                 horizontal: isExpanded ? 20 : 10,
+//                 vertical: 20,
+//               ),
+//               padding: EdgeInsets.all(8),
+//               height: isExpanded ? 100 : 330,
+//               curve: Curves.fastLinearToSlowEaseIn,
+//               duration: Duration(milliseconds: 1200),
+//               decoration: BoxDecoration(
+//                 color:kPrimaryColor,
+//                 borderRadius: BorderRadius.all(
+//                   Radius.circular(isExpanded ? 20 : 20),
+//                 ),
+//               ),
+//               child: Column(
+//                 children: [
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//
+//                       Container(
+//                         height: 80,width: 80,
+//                         decoration: BoxDecoration(
+//                             image:  DecorationImage(
+//                               image:NetworkImage(
+//                                   data[index].data()['img_path']?? " "),
+//                             ),
+//                             borderRadius: BorderRadius.circular(10)
+//
+//                         ),
+//                       ),
+//                       Icon(
+//                         isExpanded
+//                             ? Icons.keyboard_arrow_down
+//                             : Icons.keyboard_arrow_up,
+//                         color: Colors.white,
+//                         size: 27,
+//                       ),
+//                     ],
+//                   ),
+//                   isExpanded ? SizedBox() : SizedBox(height: 20),
+//                   AnimatedCrossFade(
+//                     firstChild: const Text(
+//                       '',
+//                       style: TextStyle(
+//                         fontSize: 0,
+//                       ),
+//                     ),
+//                     secondChild:const  Text(
+//                       'shahad',
+//                       style: TextStyle(
+//                         color: Colors.white,
+//                         fontSize: 15.7,
+//                       ),
+//                     ),
+//                     crossFadeState: isExpanded
+//                         ? CrossFadeState.showFirst
+//                         : CrossFadeState.showSecond,
+//                     duration: Duration(milliseconds: 1200),
+//                     reverseDuration: Duration.zero,
+//                     sizeCurve: Curves.fastLinearToSlowEaseIn,
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//     },
+//
+//
+//
+//
+//         ),
+//     );
+//   }
+// }
 
 
 
@@ -439,3 +554,4 @@ class _MyCustomWidgetState extends State<favcard> {
   //     _key.currentState.removeItem(indexToRemove, builder);
   //   }
 
+//data[index].data()['img_path']?? " "
