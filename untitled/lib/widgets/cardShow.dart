@@ -6,9 +6,11 @@ import 'package:untitled/lists/list1.dart';
 import 'package:untitled/pages/details/detailPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:untitled/widgets/loading.dart';
 import '../constants.dart';
 import 'favWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 class cardShow extends StatefulWidget {
   const cardShow({super.key});
@@ -53,7 +55,7 @@ class _cardShowState extends State<cardShow> with SingleTickerProviderStateMixin
     return data == null
 
         ? Center(
-            child: CircularProgressIndicator(),
+            child: loadindWidget(),
           )
 
         : AnimationLimiter(

@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../widgets/favirate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../widgets/loading.dart';
+
 class favPage extends StatefulWidget {
   @override
   _FavoriteState createState() => _FavoriteState();
@@ -83,11 +85,12 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
     return data == null
 
         ? Center(
-      child: CircularProgressIndicator(),
+      child: loadindWidget(),
     )
 
         : Scaffold(
       appBar: AppBar(
+        systemOverlayStyle:SystemUiOverlayStyle(statusBarColor: Colors.black),
         elevation: 0.0,
         automaticallyImplyLeading: false,
         backgroundColor: kPrimaryColor,

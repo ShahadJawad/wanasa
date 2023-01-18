@@ -7,6 +7,8 @@ import 'package:untitled/pages/splash_screen.dart';
 import 'package:untitled/test/test.dart';
 import 'auth_server.dart';
 import 'pages/mainPage.dart';
+
+
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         Locale('ar', 'AE'), // English, no country code
       ],
       debugShowCheckedModeBanner: false,
-      home: mainPage(),
+      home: splash_page(),
     );
   }
 }
