@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         Locale('ar', 'AE'), // English, no country code
       ],
       debugShowCheckedModeBanner: false,
-      home: splash_page(),
+      home: mainPage(),
     );
   }
 }

@@ -89,6 +89,7 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
     )
 
         : Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         systemOverlayStyle:SystemUiOverlayStyle(statusBarColor: Colors.black),
         elevation: 0.0,

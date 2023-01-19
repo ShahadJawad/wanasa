@@ -121,7 +121,7 @@ class _HomePageState extends State<loadindWidget> with TickerProviderStateMixin 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       body: Center(
         child: Container(
           height: 100,

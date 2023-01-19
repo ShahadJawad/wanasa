@@ -33,6 +33,7 @@ class _searchPageState extends State<searchPage> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           
           leading: Icon(Icons.search_outlined),
