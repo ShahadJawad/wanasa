@@ -64,8 +64,8 @@ class _searchPageState extends State<searchPage> {
                 leading:CircleAvatar(
                   backgroundImage:NetworkImage(searchResult[index]['img_path'],) ,
                 ),
-                title: Text(searchResult[index]['name']),
-                subtitle:Text(searchResult[index]['city']) ,
+                title: Text(searchResult[index]['name'],style: TextStyle(color: Colors.black),),
+                subtitle:Text(searchResult[index]['city'],style: TextStyle(color: Colors.black)) ,
 
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(

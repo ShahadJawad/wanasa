@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/pages/login_page.dart';
+import 'package:untitled/pages/navbar/profile/content/helpCenter.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -15,7 +17,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "حسابي",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
+            press: () => {
+
+            },
           ),
           ProfileMenu(
             text: "الأشعارات",
@@ -30,12 +34,16 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "مركز المساعده",
             icon: "assets/icons/Question mark.svg",
-            press: () {},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => helpCenter(),));
+            },
           ),
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => login(),));
+            },
           ),
         ],
       ),

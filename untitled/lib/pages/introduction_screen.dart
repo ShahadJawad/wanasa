@@ -26,15 +26,16 @@ class _IntroScreenState extends State<IntroScreen> {
     // the runtime of app
     slides.add(
        Slide(
-        title: "GeeksForGeeks ",
+        title: "ضايج وما تعرف وين تروح ؟ ",
         maxLineTitle: 2,
         styleTitle:const TextStyle(
+          fontFamily: 'Tajawal',
           color: Colors.black,
           fontSize: 30.0,
           fontWeight: FontWeight.bold,
         ),
         description:
-        "GeeksForGeeks present you the intro_slider tutorial making your learning phase Easier.",
+        "تطبيق وناسة يدليك على كل الاماكن الحلوه الموجوده بالعراق ,  ومن خلال الموبايل فقط . ",
       styleDescription: TextStyle(
         color: Colors.black,
         fontSize: 20.0,
@@ -54,13 +55,13 @@ class _IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
      Slide(
-    title: "Second Slide",
+    title: "",
     styleTitle: TextStyle(
     color: Colors.black,
     fontSize: 30.0,
     fontWeight: FontWeight.bold,
     ),
-    description: "Do video call anywhere anytime with this app.",
+    description: "اختار المكان الي تريده وشاركه وي اصدقائك حتى تطلعون وتنونسون .   ",
        centerWidget: Image(image: AssetImage('assest/images/intro2.png')),
 
        styleDescription: TextStyle(
@@ -74,16 +75,16 @@ class _IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
      Slide(
-    title: "Third Slide",
+    title: "",
      styleTitle:const TextStyle(
      color: Colors.black,
      fontSize: 30.0,
      fontWeight: FontWeight.bold,
     ),
-    description: "Now track the location with this app easily.",
+    description: "واهم شي طلعات العائله الحلوه , لان عدنا اماكن مناسبه للعوائل والاطفال . ",
        centerWidget: Image(image: AssetImage('assest/images/intro3.png')),
        styleDescription:const TextStyle(
-    color: Colors.white,
+    color: Colors.black,
     fontSize: 20.0,
     ),
        backgroundColor: Colors.white,
@@ -108,7 +109,7 @@ class _IntroScreenState extends State<IntroScreen> {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => login(),));
           },
           child:const Text(
-            "Skip",
+            "تخطي",
             style: TextStyle(fontSize: 20,color:kPrimaryColor),
           )),
 
@@ -120,8 +121,10 @@ class _IntroScreenState extends State<IntroScreen> {
       ),
       // Done button
       renderDoneBtn: TextButton(
-          onPressed: () {},
-          child:const Text("Done",
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => login(),));
+          },
+          child:const Text("تم",
               style: TextStyle(fontSize: 20,color: kPrimaryColor,))),
 
       // Dot indicator

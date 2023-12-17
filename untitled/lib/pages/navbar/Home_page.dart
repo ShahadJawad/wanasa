@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/constants.dart';
-import 'package:untitled/lists/list1.dart';
-import 'package:untitled/test/test.dart';
 import 'package:untitled/widgets/cardShow.dart';
+import '../../widgets/cardshow1.dart';
+import '../../widgets/cardshow2.dart';
+import '../../widgets/cardshow3.dart';
+import '../../widgets/cardshow4.dart';
+import '../../widgets/cardshow5.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -38,13 +41,14 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin {
                           fontSize: 20,
                           color: Colors.black,
                           fontWeight: FontWeight.bold)),
-                      Text('أكتشف مدينتك',style: TextStyle(fontSize: 13)),
+                      Text('أكتشف مدينتك',style: TextStyle(fontSize: 13,color: Colors.black)),
                     ],
                   ),
                   trailing: CircleAvatar(backgroundImage:AssetImage('assest/images/person.jpg') ,radius: 28),
                 ),
                 ),
 
+                //التصنيف
                 Container(
                   child: Align(
                     alignment: Alignment.centerRight,
@@ -55,6 +59,8 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin {
                       controller: _tabController,
                         labelColor: Colors.black,
                         unselectedLabelColor: Colors.grey,
+                        indicatorColor: kPrimaryColor,
+                        indicatorSize: TabBarIndicatorSize.label,
 
                         tabs: const[
                           Text('الكل'),
@@ -69,7 +75,7 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin {
                 ),
 
                 Container(
-                  height: h/1.51,
+                  height: h/1.49,
                   child: TabBarView(
                     controller: _tabController,
                       children: [
@@ -82,27 +88,27 @@ class _HomeState extends State<Home>  with TickerProviderStateMixin {
                         Container(
                             color: Colors.white,
                             margin: EdgeInsets.only(top: 12),
-                            child:  cardShow()),
+                            child:  cardShow1()),
 
                         Container(
                             color: Colors.white,
                             margin: EdgeInsets.only(top: 12),
-                            child:  cardShow()),
+                            child:  cardShow2()),
 
                         Container(
                             color: Colors.white,
                             margin: EdgeInsets.only(top: 12),
-                            child:  cardShow()),
+                            child:  cardShow3()),
 
                         Container(
                             color: Colors.white,
                             margin: EdgeInsets.only(top: 12),
-                            child:  cardShow()),
+                            child:  cardShow4()),
 
                         Container(
                             color: Colors.white,
                             margin: EdgeInsets.only(top: 12),
-                            child:  cardShow()),
+                            child:  cardShow5()),
 
                       ]
                   ),

@@ -16,7 +16,7 @@ class ProfilePic extends StatelessWidget {
         fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
-          CircleAvatar(
+         const CircleAvatar(
             backgroundImage: AssetImage("assest/images/person.jpg"),
           ),
           Positioned(
@@ -28,7 +28,7 @@ class ProfilePic extends StatelessWidget {
               child: InkWell(
                 onTap: () {},
 
-                child: CircleAvatar(
+                child:const CircleAvatar(
                   backgroundColor: Colors.white,
                   child: Icon(
                     Icons.camera,

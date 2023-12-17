@@ -4,16 +4,43 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:untitled/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../widgets/favWidget.dart';
 import '../../widgets/stars.dart';
-
-class detailsPage extends StatelessWidget {
+import 'package:share_plus/share_plus.dart';
+class detailsPage extends StatefulWidget {
   final data;
   detailsPage({Key? key, this.data}) : super(key: key);
 
+  @override
+  State<detailsPage> createState() => _detailsPageState();
+}
+
+class _detailsPageState extends State<detailsPage> {
   void _launchURL(url) async {
     if (!await launch(url)) throw 'Could not launch $url';
+  }
+
+  var dataa;
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _controller.dispose();
+  // }
+
+  getData() async {
+    FirebaseFirestore.instance.collection('places').get().then((value) {
+      setState(() {
+        dataa = value.docs;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
   }
 
   @override
@@ -21,13 +48,14 @@ class detailsPage extends StatelessWidget {
     final h = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
           SizedBox(
             height: h / 2,
             width: double.infinity,
             child: Image(
-              image: NetworkImage(data['img_path']?? " "),
+              image: NetworkImage(widget.data['img_path']?? " "),
               fit: BoxFit.cover,
             ),
           ),
@@ -37,74 +65,83 @@ class detailsPage extends StatelessWidget {
       ),
 
       //Nav Bar
-      bottomNavigationBar: Container(
-        height: 65,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // find place
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              height: 45,
-              width: 120,
-              decoration: BoxDecoration(
-                  color: kPrimaryColor,
-                  borderRadius: BorderRadius.circular(15)),
-              child: InkWell(
-                onTap: () => _launchURL(data['location']?? " "),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
-                      Text(' أذهب للمكان',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold)),
-                      Icon(
-                        Icons.place,
-                        color: Colors.white,
-                        size: 23,
-                      )
-                    ]),
-              ),
-            ),
-
-            // fav and share
-            Row(
+      bottomNavigationBar:  Container(
+            height: 65,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // find place
                 Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: 42,
-                  width: 42,
+                  margin: EdgeInsets.only(right: 10),
+                  height: 45,
+                  width: 120,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: LikeButton(),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  height: 42,
-                  width: 42,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: const Icon(
-                    Icons.share,
-                    color: kPrimaryColor,
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: InkWell(
+                    onTap: () => _launchURL(widget.data['location']?? " "),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          Text(' أذهب للمكان',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold)),
+                          Icon(
+                            Icons.place,
+                            color: Colors.white,
+                            size: 23,
+                          )
+                        ]),
                   ),
+                ),
+
+                // fav and share
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      height: 42,
+                      width: 42,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child:LikeButton(
+                          idd: dataa[1].reference.id,
+                          dataa: dataa[1].data()),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                       await Share.share('hello');
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        height: 42,
+                        width: 42,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Icon(
+                          Icons.share,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+      //  child:
       ),
-    ));
+        );
   }
 
   buttonArrow(BuildContext context) {
@@ -187,9 +224,10 @@ class detailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${data['city']?? " "} \n ,${data['name']??" "}',
+                          '${widget.data['city']?? " "} \n ,${widget.data['name']??" "}',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,color: Colors.black),
                         ),
                         stars(
                           mysizs: 22.0,
@@ -202,19 +240,12 @@ class detailsPage extends StatelessWidget {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Container(
-                        //   padding: const EdgeInsets.only(top: 15),
-                        //   child:const Text(
-                        //     " الوصف",
-                        //     style: TextStyle(
-                        //         fontWeight: FontWeight.w500, fontSize: 20),
-                        //   ),
-                        // ),
+
                         Container(
                           padding: const EdgeInsets.only(top: 10),
                           child: Text(
-                            data['description']?? " ",
-                            style:const TextStyle(fontSize: 16),
+                            widget.data['description']?? " ",
+                            style:const TextStyle(fontSize: 16,color: Colors.black),
                           ),
                         ),
                       ])

@@ -20,6 +20,7 @@ class textform extends StatelessWidget {
           decoration:   InputDecoration(
               prefixIcon: myicon,
               hintText:hinttext,
+              hintStyle: TextStyle(color: Colors.black),
               suffixIcon:suffixIcon,
               border: InputBorder.none
 

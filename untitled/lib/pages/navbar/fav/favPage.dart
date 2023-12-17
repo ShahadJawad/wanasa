@@ -22,18 +22,6 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
   bool isExpanded = true;
   Color _colorHeart = Colors.red;
 
-  // @override
-  // void initState() {
-  //   _animationController =
-  //       AnimationController(vsync: this, duration: Duration(milliseconds: 850));
-  //
-  //   Timer(Duration(milliseconds: 200), () => _animationController.forward());
-  //   //
-  //   // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //   //   fetchDatabaseList();
-  //   // });
-  //   super.initState();
-  // }
 
   void _launchURL(url) async {
     if (!await launch(url)) throw 'Could not launch $url';
@@ -45,15 +33,6 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
     super.dispose();
   }
 
-  // fetchDatabaseList() async {
-  //   dynamic resultPlaces = await DataManager().getFavoriteScreenPlacesList();
-  //   if (resultPlaces == null) {
-  //   } else {
-  //     setState(() {
-  //       favoritePlaces = resultPlaces;
-  //     });
-  //   }
-  // }
 
   Tween<Offset> _offset = Tween(begin: Offset(3, 0), end: Offset(0, 0));
   var data;
@@ -244,6 +223,7 @@ class _FavoriteState extends State<favPage> with SingleTickerProviderStateMixin 
                             reverseDuration: Duration.zero,
                             sizeCurve: Curves.fastLinearToSlowEaseIn,
                           ),
+
                         ],
                       ),
                     ),

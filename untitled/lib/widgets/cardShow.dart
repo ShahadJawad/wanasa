@@ -60,7 +60,7 @@ class _cardShowState extends State<cardShow> with SingleTickerProviderStateMixin
 
         : AnimationLimiter(
             child: GridView.count(
-              physics: BouncingScrollPhysics(
+              physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               padding: EdgeInsets.all(_w / 70),
               crossAxisCount: columnCount,
@@ -113,7 +113,7 @@ class _cardShowState extends State<cardShow> with SingleTickerProviderStateMixin
                                 children: [
                                   //fav button
                                   Container(
-                                    margin: EdgeInsets.only(top: 5, right: 5),
+                                    margin:const EdgeInsets.only(top: 5, right: 5),
                                     height: 30,
                                     width: 30,
                                     decoration: BoxDecoration(

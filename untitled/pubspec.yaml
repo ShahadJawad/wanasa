@@ -59,6 +59,7 @@ dev_dependencies:
   provider:
   sqflite: ^2.2.2
   intro_slider: ^2.2.9
+  share_plus: ^6.3.1
   path_provider:
   flutter_staggered_animations:
   url_launcher:
@@ -91,11 +92,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-#  fonts:
-#    - family: Alkalami
-#      fonts:
-#        - asset: assets/fonts/Alkalami-Regular.ttf
-#
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assest/fonts/Tajawal-Regular.ttf
+
 #    - family: Cairo
 #      fonts:
 #        - asset: assets/fonts/Cairo-Regular.ttf
